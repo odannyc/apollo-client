@@ -113,7 +113,7 @@ function getErrorCode(
       throw new Error(`invariant minification error: node cannot have dynamical error argument!
         file: ${posix.join(distDir, file)}:${expr.loc?.start.line}
         code:
-  
+
         ${reprint(message)}
       `);
     }
@@ -121,12 +121,6 @@ function getErrorCode(
 }
 
 function transform(code: string, relativeFilePath: string) {
-  // If the code doesn't seem to contain anything invariant-related, we
-  // can skip parsing and transforming it.
-  if (!/invariant/i.test(code)) {
-    return code;
-  }
-
   const ast = reparse(code);
 
   recast.visit(ast, {
@@ -193,6 +187,21 @@ function transform(code: string, relativeFilePath: string) {
         }
         return b.logicalExpression('&&', makeDEVExpr(), newNode);
       }
+    },
+  });
+
+  recast.visit(ast, {
+    visitIdentifier(path) {
+      this.traverse(path);
+      const node = path.node;
+      if (isDEVExpr(node)) {
+        return b.memberExpression(
+          b.identifier('globalThis'),
+          b.identifier('__DEV__')
+        );
+      }
+
+      return node;
     },
   });
 
