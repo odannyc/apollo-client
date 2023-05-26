@@ -1,4 +1,4 @@
-import { invariant, newInvariantError, __DEV__ } from '../../utilities/globals';
+import { invariant, newInvariantError } from '../../utilities/globals';
 
 import type {
   DocumentNode,
@@ -522,7 +522,7 @@ function assertSelectionSetForIdValue(
         invariant(
           !isReference(value),
           `Missing selection set for object of type %s returned for query field %s`,
-          getTypenameFromStoreObject(store, value), 
+          getTypenameFromStoreObject(store, value),
           field.name.value
         );
         Object.values(value).forEach(workSet.add, workSet);

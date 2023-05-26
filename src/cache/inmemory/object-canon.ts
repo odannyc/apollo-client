@@ -1,4 +1,5 @@
-import { __DEV__ } from "../../utilities/globals";
+import "../../utilities/globals";
+
 import { Trie } from "@wry/trie";
 import {
   canUseWeakMap,
