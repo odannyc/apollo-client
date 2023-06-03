@@ -4,7 +4,7 @@ title: Compiling queries with Babel
 
 If you prefer co-locating your GraphQL queries in your Javascript files, you typically use the [graphql-tag](https://github.com/apollographql/graphql-tag) library to write them. That requires to process the query strings into a GraphQL AST, which will add to the startup time of your application, especially if you have many queries.
 
-To avoid this runtime overhead, you can precompile your queries created with `graphql-tag` using [Babel](http://babeljs.io/). Here are two ways you can do this:
+To avoid this runtime overhead, you can precompile your queries created with `graphql-tag` using [Babel](http://babeljs.io/). Here are three ways you can do this:
 
 1. Using [babel-plugin-graphql-tag](#using-babel-plugin-graphql-tag)
 2. Using [graphql-tag.macro](#using-graphql-tagmacro)
